@@ -1,8 +1,10 @@
 const postgre = require("../../database");
+
 const bookController = {
   getAll: async (req, res) => {
     try {
       const { rows } = await postgre.query("select * from books");
+
       res.json({ msg: "OK", data: rows });
     } catch (error) {
       res.json({ msg: error.msg });
@@ -28,9 +30,9 @@ const bookController = {
     try {
       const { name, price } = req.body;
 
-      const sql = "INSERT INTO books(name, price) VALUES($1, $2) RETURNING *";
+      const sql = `INSERT INTO books (name, price) VALUES('${name}', ${price}) `;
 
-      const { rows } = await postgre.query(sql, [name, price]);
+      const { rows } = await postgre.query(sql);
 
       res.json({ msg: "OK", data: rows[0] });
     } catch (error) {
