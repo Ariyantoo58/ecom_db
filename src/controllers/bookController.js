@@ -27,6 +27,7 @@ const bookController = {
     }
   },
   create: async (req, res) => {
+    console.log(req.body, "reqqq");
     try {
       const { name, price } = req.body;
 
